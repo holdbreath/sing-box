@@ -1009,6 +1009,9 @@ add() {
         fi
         # set host
         [[ ! $host ]] && ask string host "请输入域名:"
+        # set cf addr (optional, for CDN optimized IP domain)
+        [[ ! $is_cf_addr ]] && ask string is_cf_addr "请输入 CF 优选域名 (直接回车跳过, 默认使用 VPS 域名):"
+        [[ ! $is_cf_addr ]] && is_cf_addr=$host
         # test host dns
         get host-test
     else
@@ -1377,7 +1380,7 @@ info() {
                     is_can_change=(0 1 2 3 4)
                     is_info_show=(0 1 2 10 4 6 7 8)
                 }
-                is_url="$is_protocol://$uuid@cf.inseek.ltd:$is_https_port?encryption=none&security=tls&type=$net&host=$host&path=$path#233boy-$net-$host"
+                is_url="$is_protocol://$uuid@$is_cf_addr:$is_https_port?encryption=none&security=tls&type=$net&host=$host&path=$path#233boy-$net-$host"
             }
             [[ $is_caddy ]] && is_can_change+=(11)
             is_info_str=($is_protocol $is_addr $is_https_port $uuid $net $host $path 'tls')
