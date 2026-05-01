@@ -1092,6 +1092,8 @@ get() {
             is_addr=$ip
             [[ $(grep ":" <<<$ip) ]] && is_addr="[$ip]"
         }
+        # use CF optimized IP domain as address if set
+        [[ $is_cf_addr && $is_cf_addr != $host ]] && is_addr=$is_cf_addr
         ;;
     new)
         [[ ! $host ]] && get_ip
