@@ -1300,9 +1300,8 @@ get() {
         # is_ip_type="-4"
         # [[ $(grep ":" <<<$ip) ]] && is_ip_type="-6"
         # is_host_dns=$(ping $host $is_ip_type -c 1 -W 2 | head -1)
-        is_dns_type="a"
-        [[ $(grep ":" <<<$ip) ]] && is_dns_type="aaaa"
-        is_host_dns=$(_wget -qO- --header="accept: application/dns-json" "https://one.one.one.one/dns-query?name=$host&type=$is_dns_type")
+        is_host_dns=$(_wget -qO- --header="accept: application/dns-json" "https://one.one.one.one/dns-query?name=$host&type=a")
+        is_host_dns+=$(_wget -qO- --header="accept: application/dns-json" "https://one.one.one.one/dns-query?name=$host&type=aaaa")
         ;;
     install-caddy)
         _green "\n安装 Caddy 实现自动配置 TLS.\n"
