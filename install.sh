@@ -437,9 +437,6 @@ main() {
     # create log dir
     mkdir -p $is_log_dir
 
-    # show a tips msg
-    msg ok "生成配置文件..."
-
     # create service
     load systemd.sh
     is_new_install=1
@@ -448,15 +445,16 @@ main() {
     # create condf dir
     mkdir -p $is_conf_dir
 
-    load core.sh
-    # create a vless-ws-tls config (interactive)
-    add vless-ws-tls
-    # create a reality config (auto)
-    add reality
     # wait for background tasks (e.g., OpenRC service start)
     wait
     # remove tmp dir and exit.
     exit_and_del_tmpdir ok
+    echo
+    msg ok "安装完成！"
+    msg warn "请手动添加节点配置:"
+    echo -e "  ${green}sing-box add vless-ws-tls${none}   # WS+TLS 节点（支持 CF 优选域名）"
+    echo -e "  ${green}sing-box add reality${none}        # Reality 节点（自动生成）"
+    echo
 }
 
 # start.
