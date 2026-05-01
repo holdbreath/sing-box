@@ -449,7 +449,9 @@ main() {
     mkdir -p $is_conf_dir
 
     load core.sh
-    # create a reality config
+    # create a vless-ws-tls config (interactive)
+    add vless-ws-tls
+    # create a reality config (auto)
     add reality
     # wait for background tasks (e.g., OpenRC service start)
     wait
